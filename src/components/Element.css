@@ -1,0 +1,200 @@
+.element {
+    aspect-ratio: 1;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.element:hover {
+    background: rgba(255, 255, 255, 0.03);
+    transform: scale(1.08);
+    z-index: 10;
+}
+
+.element.dimmed {
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.element.highlighted {
+    box-shadow: 0 0 0 2px var(--text-muted);
+}
+
+.element .number {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    font-size: 0.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.element .symbol {
+    font-family: Palatino, 'URW Palladio L', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.element .name,
+.element .mass {
+    display: none;
+}
+
+/* Category Colors - Symbol, Border and Number */
+.element.alkali-metal {
+    border-color: var(--alkali-metal);
+}
+
+.element.alkali-metal .symbol,
+.element.alkali-metal .number {
+    color: var(--alkali-metal);
+}
+
+.element.alkaline-earth {
+    border-color: var(--alkaline-earth);
+}
+
+.element.alkaline-earth .symbol,
+.element.alkaline-earth .number {
+    color: var(--alkaline-earth);
+}
+
+.element.transition-metal {
+    border-color: var(--transition-metal);
+}
+
+.element.transition-metal .symbol,
+.element.transition-metal .number {
+    color: var(--transition-metal);
+}
+
+.element.post-transition {
+    border-color: var(--post-transition);
+}
+
+.element.post-transition .symbol,
+.element.post-transition .number {
+    color: var(--post-transition);
+}
+
+.element.metalloid {
+    border-color: var(--metalloid);
+}
+
+.element.metalloid .symbol,
+.element.metalloid .number {
+    color: var(--metalloid);
+}
+
+.element.nonmetal {
+    border-color: var(--nonmetal);
+}
+
+.element.nonmetal .symbol,
+.element.nonmetal .number {
+    color: var(--nonmetal);
+}
+
+.element.halogen {
+    border-color: var(--halogen);
+}
+
+.element.halogen .symbol,
+.element.halogen .number {
+    color: var(--halogen);
+}
+
+.element.noble-gas {
+    border-color: var(--noble-gas);
+}
+
+.element.noble-gas .symbol,
+.element.noble-gas .number {
+    color: var(--noble-gas);
+}
+
+.element.lanthanide {
+    border-color: var(--lanthanide);
+}
+
+.element.lanthanide .symbol,
+.element.lanthanide .number {
+    color: var(--lanthanide);
+}
+
+.element.actinide {
+    border-color: var(--actinide);
+}
+
+.element.actinide .symbol,
+.element.actinide .number {
+    color: var(--actinide);
+}
+
+/* Hover glow effect */
+.element.alkali-metal:hover {
+    box-shadow: 0 0 12px rgba(229, 115, 115, 0.25);
+}
+
+.element.alkaline-earth:hover {
+    box-shadow: 0 0 12px rgba(255, 183, 77, 0.25);
+}
+
+.element.transition-metal:hover {
+    box-shadow: 0 0 12px rgba(129, 199, 132, 0.25);
+}
+
+.element.post-transition:hover {
+    box-shadow: 0 0 12px rgba(100, 181, 246, 0.25);
+}
+
+.element.metalloid:hover {
+    box-shadow: 0 0 12px rgba(186, 104, 200, 0.25);
+}
+
+.element.nonmetal:hover {
+    box-shadow: 0 0 12px rgba(255, 241, 118, 0.25);
+}
+
+.element.halogen:hover {
+    box-shadow: 0 0 12px rgba(77, 182, 172, 0.25);
+}
+
+.element.noble-gas:hover {
+    box-shadow: 0 0 12px rgba(121, 134, 203, 0.25);
+}
+
+.element.lanthanide:hover {
+    box-shadow: 0 0 12px rgba(240, 98, 146, 0.25);
+}
+
+.element.actinide:hover {
+    box-shadow: 0 0 12px rgba(239, 83, 80, 0.25);
+}
+
+@media (max-width: 1100px) {
+    .element .symbol {
+        font-size: 0.95rem;
+    }
+
+    .element .number {
+        font-size: 0.45rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .element .symbol {
+        font-size: 0.8rem;
+    }
+
+    .element .number {
+        display: none;
+    }
+}

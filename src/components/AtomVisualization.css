@@ -1,0 +1,287 @@
+.atom-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    perspective: 1000px;
+}
+
+.atom-3d {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transform: rotateX(60deg) rotateZ(-15deg);
+    transition: transform 0.5s ease;
+}
+
+/* 3D Nucleus */
+.nucleus-3d {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(-60deg) rotateZ(15deg);
+    /* Counter-rotate to face camera */
+    transform-style: preserve-3d;
+    z-index: 100;
+}
+
+.nucleus-core {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+            rgba(255, 255, 255, 0.8) 0%,
+            var(--nucleus-color) 40%,
+            #000 100%);
+    box-shadow:
+        0 0 30px var(--nucleus-color),
+        inset -10px -10px 20px rgba(0, 0, 0, 0.8);
+    animation: pulseNucleus 3s ease-in-out infinite;
+}
+
+/* Nucleus particles */
+.nucleus-particle {
+    display: none;
+    /* Simplified for cleaner look, core is enough */
+}
+
+@keyframes pulseNucleus {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px var(--nucleus-color);
+    }
+
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 50px var(--nucleus-color);
+    }
+}
+
+/* Orbits - Concentric Rings */
+.orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--orbit-size);
+    height: var(--orbit-size);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orbit.dimmed {
+    opacity: 0.1;
+    border-color: rgba(255, 255, 255, 0.05);
+    filter: blur(1px);
+}
+
+.orbit.highlighted {
+    border: 2px solid var(--electron-color, #fff);
+    box-shadow: 0 0 15px var(--electron-color, #fff);
+    opacity: 1;
+    z-index: 50;
+}
+
+/* Electrons container that rotates */
+.electron-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: rotateOrbit linear infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes rotateOrbit {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+/* 3D Electron Spheres */
+.electron-3d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+}
+
+.electron-sphere {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+            #fff 0%,
+            var(--electron-color) 50%,
+            #000 100%);
+    box-shadow: 0 0 10px var(--electron-color);
+    /* Counter-rotate to keep sphere facing camera */
+    animation: counterRotate linear infinite;
+    animation-duration: inherit;
+    /* Inherit from parent ring */
+    animation-direction: reverse;
+    /* Counteract parent rotation */
+}
+
+@keyframes counterRotate {
+    from {
+        transform: rotateZ(0deg) rotateX(-60deg) rotateZ(15deg);
+    }
+
+    /* Match parent rotation inverted */
+    to {
+        transform: rotateZ(-360deg) rotateX(-60deg) rotateZ(15deg);
+    }
+}
+
+/* Shell filter buttons */
+.shells-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.8rem 1.2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin-top: 1rem;
+    z-index: 200;
+    /* Ensure clickable */
+    position: relative;
+}
+
+.filter-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.shell-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.4rem 0.8rem;
+    min-width: 44px;
+    height: 32px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.shell-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.shell-btn.active {
+    background: var(--btn-color);
+    border-color: var(--btn-color);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--btn-color) 40%, transparent);
+}
+
+.shell-number {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.shell-btn.active .shell-number,
+.shell-btn.active .shell-electrons {
+    color: #000;
+    /* Better contrast on bright active color */
+}
+
+.shell-electrons {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1;
+    font-weight: 500;
+}
+
+.shell-btn.reset {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 0;
+}
+
+.shell-btn.reset:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .atom-3d {
+        width: 260px;
+        height: 260px;
+    }
+
+    .nucleus-3d {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nucleus-particle {
+        width: 10px;
+        height: 10px;
+        --radius: 16px;
+    }
+
+    .electron-3d {
+        width: 12px;
+        height: 12px;
+        margin: -6px 0 0 -6px;
+    }
+
+    .shells-filter {
+        padding: 0.6rem 1rem;
+        gap: 0.5rem;
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    .shell-btn {
+        padding: 0.3rem 0.6rem;
+        height: 28px;
+    }
+}
